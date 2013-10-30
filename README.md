@@ -16,7 +16,7 @@ This directive is meant for the raw masonry lib and not the jQuery one.
 > And than just use it (note that the masonry directive uses the same pattern as the masonry directive uses http://masonry.desandro.com/
 
 ```html
-<div masonry='{ "transitionTransition" : "0.4s" , "itemSelector" : ".tile"}'>
+<div masonry='{ "transitionDuration" : "0.4s" , "itemSelector" : ".tile"}'>
   <!-- items -->
   <div> masonry-tile ng-repeat="item in items">
         
