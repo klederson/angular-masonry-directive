@@ -24,7 +24,7 @@ var myApp = angular.module('MyApp',['masonry']);
 ```html
 <div masonry='{ "transitionDuration" : "0.4s" , "itemSelector" : ".tile"}'>
   <!-- items -->
-  <div> masonry-tile ng-repeat="item in items">
+  <div masonry-tile ng-repeat="item in items">
         
   </div>
 </div>
