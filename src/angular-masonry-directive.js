@@ -1,4 +1,7 @@
-angular.directive('masonry', function ($parse) {
+(function(){
+  "use strict";
+
+  angular.module('masonry', ['ng']).directive('masonry', function ($parse) {
     return {
         restrict: 'AC',
         link: function (scope, elem, attrs) {
@@ -11,9 +14,7 @@ angular.directive('masonry', function ($parse) {
             scope.obj = new Masonry( container, options);
         }
     };        
-});
-
-angular.directive('masonryTile', function () {
+  }).directive('masonryTile', function () {
     return {
         restrict: 'AC',
         link: function (scope, elem, attrs) {
@@ -28,4 +29,5 @@ angular.directive('masonryTile', function () {
             
        }
    };        
-});
+  });
+})();
