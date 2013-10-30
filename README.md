@@ -13,6 +13,12 @@ This directive is meant for the raw masonry lib and not the jQuery one.
 <script src="angular-masonry-directive.js"></script>
 ```
 
+> Than setup your app
+
+```html
+var myApp = angular.module('MyApp',['masonry']);
+```
+
 > And than just use it (note that the masonry directive uses the same pattern as the masonry directive uses http://masonry.desandro.com/
 
 ```html
