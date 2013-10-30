@@ -15,7 +15,7 @@ This directive is meant for the raw masonry lib and not the jQuery one.
 
 > Than setup your app
 
-```html
+```javascript
 var myApp = angular.module('MyApp',['masonry']);
 ```
 
