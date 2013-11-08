@@ -1,5 +1,5 @@
 {
-  "name": "angular-masonry",
+  "name": "angular-masonry-directive",
   "version": "1.0.0",
   "main": "./src/angular-masonry-directive.js",
   "dependencies": {
