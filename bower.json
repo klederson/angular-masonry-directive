@@ -1,0 +1,8 @@
+{
+  "name": "angular-masonry",
+  "version": "1.0.0",
+  "main": "./src/angular-masonry-directive.js",
+  "dependencies": {
+    "angular": ""
+  }
+}
