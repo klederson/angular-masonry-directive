@@ -18,13 +18,13 @@
         return {
             restrict: 'AC',
             link: function(scope, elem) {
-                var master = elem.parent('*[mansory]:first').scope();
-                var mansory = master.obj;
+                var master = elem.parent('*[masonry]:first').scope();
+                var masonry = master.obj;
 
                 elem.ready(function() {
-                    mansory.addItems([elem]);
-                    mansory.reloadItems();
-                    mansory.layout();
+                    masonry.addItems([elem]);
+                    masonry.reloadItems();
+                    masonry.layout();
                 });
             }
         };
