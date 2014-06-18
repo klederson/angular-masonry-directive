@@ -1,8 +1,10 @@
 {
   "name": "angular-masonry-directive",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./src/angular-masonry-directive.js",
   "dependencies": {
-    "angular": ""
+    "angular": "",
+    "masonry": "latest",
+    "imagesloaded": "latest"
   }
 }
