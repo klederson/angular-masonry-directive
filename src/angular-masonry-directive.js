@@ -11,9 +11,7 @@
                     itemSelector: '.item'
                 }, JSON.parse(attrs.masonry));
 
-                imagesLoaded( container, function() {
-                  scope.obj = new Masonry(container, options);
-                });
+                scope.obj = new Masonry(container, options);
             }
         };
     }).directive('masonryTile', function() {
@@ -22,6 +20,10 @@
             link: function(scope, elem) {
                 var master = elem.parent('*[masonry]:first').scope();
                 var masonry = master.obj;
+
+                imagesLoaded( elem.get(0), function() {
+                    masonry.layout();
+                });
 
                 elem.ready(function() {
                     masonry.addItems([elem]);
