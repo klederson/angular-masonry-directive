@@ -11,25 +11,34 @@
                     itemSelector: '.item'
                 }, JSON.parse(attrs.masonry));
 
-                scope.obj = new Masonry(container, options);
+                var masonry = scope.masonry = new Masonry(container, options);
+
+                var debounceTimeout = 0;
+                scope.update = function() {
+                    if (debounceTimeout) {
+                        window.clearTimeout(debounceTimeout);
+                    }
+                    debounceTimeout = window.setTimeout(function() {
+                        debounceTimeout = 0;
+
+                        masonry.reloadItems();
+                        masonry.layout();
+    
+                        elem.children(options.itemSelector).css('visibility', 'visible');
+                    }, 42);
+                };
             }
         };
     }).directive('masonryTile', function() {
         return {
             restrict: 'AC',
             link: function(scope, elem) {
-                var master = elem.parent('*[masonry]:first').scope();
-                var masonry = master.obj;
+                elem.css('visibility', 'hidden');
+                var master = elem.parent('*[masonry]:first').scope(),
+                    update = master.update;
 
-                imagesLoaded( elem.get(0), function() {
-                    masonry.layout();
-                });
-
-                elem.ready(function() {
-                    masonry.addItems([elem]);
-                    masonry.reloadItems();
-                    masonry.layout();
-                });
+                imagesLoaded( elem.get(0), update);
+                elem.ready(update);
             }
         };
     });
