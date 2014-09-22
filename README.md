@@ -10,7 +10,14 @@ This directive is meant for the raw masonry lib and not the jQuery one.
 > First you include it on your app
 
 ```html
+<script src="imagesloaded.pkgd.js"></script>
 <script src="angular-masonry-directive.js"></script>
+```
+
+or
+
+```
+bower install angular-masonry-directive
 ```
 
 > Than setup your app
