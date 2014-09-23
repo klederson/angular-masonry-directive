@@ -5,7 +5,6 @@
         return {
             restrict: 'AC',
             link: function(scope, elem, attrs) {
-                scope.items = [];
                 var container = elem[0];
                 var options = angular.extend({
                     itemSelector: '.item'
@@ -39,6 +38,10 @@
 
                 imagesLoaded( elem.get(0), update);
                 elem.ready(update);
+                
+                scope.$watch(function () {
+                    update();
+                });
             }
         };
     });
