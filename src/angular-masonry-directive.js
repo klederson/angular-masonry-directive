@@ -39,6 +39,10 @@
 
                 imagesLoaded( elem.get(0), update);
                 elem.ready(update);
+                
+                scope.$watch(function () {
+                    update();
+                });
             }
         };
     });
