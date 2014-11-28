@@ -5,7 +5,6 @@
         return {
             restrict: 'AC',
             link: function(scope, elem, attrs) {
-                scope.items = [];
                 var container = elem[0];
                 var options = angular.extend({
                     itemSelector: '.item'
@@ -27,6 +26,7 @@
                         elem.children(options.itemSelector).css('visibility', 'visible');
                     }, 120);
                 };
+                scope.update();
             }
         };
     }).directive('masonryTile', function() {
@@ -36,9 +36,10 @@
                 elem.css('visibility', 'hidden');
                 var master = elem.parent('*[masonry]:first').scope(),
                     update = master.update;
-
-                imagesLoaded( elem.get(0), update);
-                elem.ready(update);
+                if (update) {
+                    imagesLoaded( elem.get(0), update);
+                    elem.ready(update);
+                }
             }
         };
     });
