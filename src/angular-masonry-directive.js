@@ -1,7 +1,7 @@
 (function() {
     "use strict";
 
-    angular.module('masonry', ['ng']).directive('masonry', function($timeout) {
+    angular.module('masonry', ['ng']).directive('masonry', ['$timeout', function($timeout) {
         return {
             restrict: 'AC',
             link: function(scope, elem, attrs) {
@@ -45,7 +45,7 @@
                 scope.update();
             }
         };
-    }).directive('masonryTile', function() {
+    }]).directive('masonryTile', function() {
         return {
             restrict: 'AC',
             link: function(scope, elem) {
