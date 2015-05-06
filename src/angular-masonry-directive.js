@@ -4,6 +4,9 @@
     angular.module('masonry', ['ng']).directive('masonry', function($timeout) {
         return {
             restrict: 'AC',
+            scope: {
+				control: "="
+			},
             link: function(scope, elem, attrs) {
                 var container = elem[0];
                 var options = angular.extend({
@@ -11,7 +14,9 @@
                 }, angular.fromJson(attrs.masonry));
 
                 var masonry = scope.masonry = new Masonry(container, options);
-
+                
+                scope.control = scope.masonry;
+                
                 var debounceTimeout = 0;
                 scope.update = function() {
                     if (debounceTimeout) {
