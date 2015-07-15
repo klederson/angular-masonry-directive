@@ -22,10 +22,20 @@ var myApp = angular.module('MyApp',['masonry']);
 > And then just use it (note that the masonry directive uses the same pattern as the masonry directive uses http://masonry.desandro.com/
 
 ```html
+<!-- default options: { itemSelector: ".item" } -->
 <div masonry='{ "transitionDuration" : "0.4s" , "itemSelector" : ".tile"}'>
   <!-- items -->
   <div masonry-tile ng-repeat="item in items">
         
   </div>
+</div>
+```
+
+> When something has changed in your layout and you want to updated masonry, simply call `scope.$emit('masonry.layout')`:
+
+```html
+<div masonry class="{{containerClass}}">
+  ...
+  <button ng-click="containerClass = 'bigger'; $emit('masonry.layout')" />
 </div>
 ```
