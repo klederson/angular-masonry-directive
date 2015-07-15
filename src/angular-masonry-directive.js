@@ -1,71 +1,77 @@
 (function() {
     "use strict";
 
-    angular.module('masonry', ['ng']).directive('masonry', function($timeout) {
+    angular.module('masonry', ['ng']).directive('masonry', ['$timeout', function($timeout) {
         return {
-            restrict: 'AC',
+            restrict: 'A',
+            scope: true,
             link: function(scope, elem, attrs) {
                 var container = elem[0];
-                var options = angular.extend({
+                var options = {
                     itemSelector: '.item'
-                }, angular.fromJson(attrs.masonry));
+                }
+                if (attrs.masonry) {
+                    angular.extend(options, angular.fromJson(attrs.masonry));
+                }
 
                 var masonry = scope.masonry = new Masonry(container, options);
 
-                var debounceTimeout = 0;
-                scope.update = function() {
+                var debounceTimeout = null;
+                scope.updateMasonry = function() {
                     if (debounceTimeout) {
                         $timeout.cancel(debounceTimeout);
                     }
                     debounceTimeout = $timeout(function() {
-                        debounceTimeout = 0;
+                        debounceTimeout = null;
 
                         masonry.reloadItems();
                         masonry.layout();
-    
+
                         elem.children(options.itemSelector).css('visibility', 'visible');
-                    }, 120);
+                    }, 0);
                 };
-                
-                scope.removeBrick = function() {
+
+                scope.removeMasonryBrick = function() {
                     $timeout(function() {
                         masonry.reloadItems();
                         masonry.layout();
-                   }, 500);
-                };                
-                
-                scope.appendBricks = function(ele) {
+                   }, 0);
+                };
+
+                scope.appendMasonryBrick = function(ele) {
                     masonry.appended(ele);
-                };                
-                
+                };
+
                 scope.$on('masonry.layout', function() {
-                    masonry.layout();                 
+                    $timeout(function() { masonry.layout(); }, 0);
                 });
-                
-                scope.update();
+
+                scope.$on('$destroy', function() { masonry.destroy(); });
+
+                scope.updateMasonry();
             }
         };
-    }).directive('masonryTile', function() {
+    }]).directive('masonryTile', function() {
         return {
             restrict: 'AC',
             link: function(scope, elem) {
                 elem.css('visibility', 'hidden');
-                var master = elem.parent('*[masonry]:first').scope(),
-                    update = master.update,
-                    removeBrick = master.removeBrick,
-                    appendBricks = master.appendBricks;                    
+                var master = elem.parents('*[masonry]:first').scope(),
+                    update = master.updateMasonry,
+                    removeBrick = master.removeMasonryBrick,
+                    appendBrick = master.appendMasonryBrick;
                 if (update) {
                     imagesLoaded( elem.get(0), update);
                     elem.ready(update);
                 }
-                if (appendBricks) {
-                    imagesLoaded( elem.get(0), appendBricks(elem));
-                }                
+                if (appendBrick) {
+                    imagesLoaded( elem.get(0), appendBrick(elem));
+                }
                 scope.$on('$destroy', function() {
                     if (removeBrick) {
                         removeBrick();
                     }
-                });                
+                });
             }
         };
     });
