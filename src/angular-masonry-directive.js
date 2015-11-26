@@ -48,18 +48,25 @@
     }).directive('masonryTile', function() {
         return {
             restrict: 'AC',
-            link: function(scope, elem) {
+            link: function(scope, elem, attrs) {
                 elem.css('visibility', 'hidden');
+
                 var master = elem.parent('*[masonry]:first').scope(),
                     update = master.update,
                     removeBrick = master.removeBrick,
-                    appendBricks = master.appendBricks;                    
+                    appendBricks = master.appendBricks,
+                    options =  angular.fromJson(attrs.masonryTile.length? attrs.masonryTile: '{}');
+
+                
+                var done = function() {
+                    elem.addClass('loaded')
+                }                    
                 if (update) {
-                    imagesLoaded( elem.get(0), update);
+                    imagesLoaded( elem.get(0), options.imagesLoaded || {}, update).on('done', done);
                     elem.ready(update);
                 }
                 if (appendBricks) {
-                    imagesLoaded( elem.get(0), appendBricks(elem));
+                    imagesLoaded( elem.get(0), options.imagesLoaded || {}, appendBricks(elem)).on('done', done);
                 }                
                 scope.$on('$destroy', function() {
                     if (removeBrick) {
