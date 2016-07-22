@@ -5,7 +5,7 @@
         return {
             restrict: 'AC',
             scope: {},
-            controller: function($scope, $element, $attrs) {
+            controller: ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
                 var container = $element[0];
                 var options = angular.extend({
                     itemSelector: '.item'
@@ -56,7 +56,7 @@
                 $scope.$on('ngMasonry.appendBricks', function (el) {
                     this.appendBricks(el);
                 });
-            }
+            }]
         };
     }]).directive('masonryTile', function() {
         return {
