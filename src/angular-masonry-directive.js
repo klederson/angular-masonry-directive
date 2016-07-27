@@ -41,6 +41,8 @@
                 scope.$on('masonry.layout', function() {
                     masonry.layout();                 
                 });
+
+                scope.$emit('masonry.created', masonry);
                 
                 scope.update();
             }
